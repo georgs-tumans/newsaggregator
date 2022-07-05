@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/helmesproject/v17
+/.vs/helmesproject/config
+/.vs/helmesproject
+/helmesproject/bin/Debug/net6.0
+/helmesproject/obj
+/helmesproject/helmesproject.csproj.user
+/helmesproject/ClientApp/.angular/cache
+/helmesproject/appsettings.json
+/helmesproject/appsettings.Development.json
