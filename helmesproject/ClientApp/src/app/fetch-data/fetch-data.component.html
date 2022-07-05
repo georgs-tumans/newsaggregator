@@ -1,0 +1,36 @@
+<h1 class="display-3 text-center">Aggregated news articles</h1>
+
+
+<p *ngIf="!news"><em>Loading...</em></p>
+
+
+<div class="table-responsive" style="margin-top:5%">
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="news">
+    <thead>
+      <tr class="d-flex">
+        <th class="col-2"> Date </th>
+        <th class="col-4">Title</th>
+        <th class="col-2">Author</th>
+        <th class="col-4">URL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let n of news | slice: (page-1) * pageSize : page * pageSize; index as i" class="d-flex">
+        <td class="col-2">{{ convertDate(n.date) }}</td>
+        <td class="col-4">{{ n.title }}</td>
+        <td class="col-2">{{ n.author }}</td>
+        <td class="col-4">{{ n.url }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="dropdown">
+  <select [(ngModel)]="pageSize" class="form-select">
+    <option *ngFor="let ps of pageSizes" [value]="ps">{{ps}}</option>
+  </select>
+</div>
+<div>
+  <ngb-pagination [collectionSize]="news.length" [(page)]="page" [pageSize] = "pageSize" [maxSize]="5" [rotate]="true" [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
+</div>
+
