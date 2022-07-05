@@ -11,3 +11,8 @@
 /helmesproject/ClientApp/.angular/cache
 /helmesproject/appsettings.json
 /helmesproject/appsettings.Development.json
+/helmesproject/helmes.db-wal
+/helmesproject/helmes.db-shm
+/helmesproject/helmes.db
+/my_logs
+/helmesproject/*.log
