@@ -1,4 +1,5 @@
 ﻿global using helmesproject.Data;
+global using helmesproject.Helpers;
 using helmesproject;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,8 +13,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("local"));
 });
 
+builder.Services.AddSingleton<LoggerService>();
+
 //Pievieno autonomo servisu, kas ik pa laikam izgūst API datus
 builder.Services.AddHostedService<AppBackgroundService>();
+
 
 var app = builder.Build();
 
