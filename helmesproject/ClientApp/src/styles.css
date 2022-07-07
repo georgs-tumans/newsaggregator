@@ -20,3 +20,29 @@ code {
   float: left;
   margin-right: 2%;
 }
+
+.pagination {
+  max-width: 50%;
+  float: left;
+  margin-right: 4%;
+  color: #6c58bF;
+}
+
+.pagination > .active > a {
+  color: white;
+  background-color: #212529 !Important;
+  border: solid 1px #5A4181 !Important;
+}
+
+.pagination > li > a {
+  background-color: white;
+  color: black;
+}
+
+.pagination > li > a:hover {
+  color: #5a5a5a;
+  background-color: #eee;
+  border-color: #ddd;
+}
+
+
