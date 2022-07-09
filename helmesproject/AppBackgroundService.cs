@@ -98,8 +98,8 @@
                         
                         foreach (var item in responseResult.Data)
                         {
-                            //Lai nerakstītu dublikātus, bet laikam guidi tām pašām ziņām sakrīt
-                            if (!dbContext.NewsItems.Where(x => x.ItemGuid == item.Id).Any())
+                            //Lai nerakstītu dublikātus (ja vien iestatījumos nav norādīts, ka gribam arī dublikātus)
+                            if (Convert.ToBoolean(_config.GetSection("SaveDuplicates").Value) || !IsDuplicate(item, dbContext))
                             {
                                 resultList.Add(new NewsItem()
                                 {
@@ -149,6 +149,16 @@
 
             return parsedDate;
           
+        }
+
+        //Pēc saņemto ierakstu GUID salīdzināt nevar, jo katru reizi saņemot to pašu ziņu tas būs citāds
+        private bool IsDuplicate(NewsResponseItem item, AppDbContext context)
+        {
+            DateTime itemDate = ConvertTime(item.Date, item.Time);
+            if (context.NewsItems.Where(x => x.Author == item.Author && x.Date == itemDate && x.Title == item.Title).Any())
+                return true;
+            else
+                return false;
         }
 
     }

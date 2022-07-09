@@ -3,10 +3,12 @@
 <p *ngIf="!news"><em>Loading...</em></p>
 
 
-<div class="example-button-row" style="margin-bottom: 1%">
+<div class="example-button-row" style="margin-bottom: 1%" *ngIf="!isLoadingResults">
   <button mat-mini-fab color="primary" (click)="refreshData()"
           aria-label="Refresh"
-          matTooltip="Refresh data"> <mat-icon>refresh</mat-icon> </button>
+          matTooltip="Refresh data">
+    <mat-icon>refresh</mat-icon>
+  </button>
 </div>
 
 <div class="example-loading-shade" *ngIf="isLoadingResults">
@@ -14,9 +16,11 @@
   <br>
 </div>
 
-
 <div class="mat-elevation-z8" style="margin-bottom: 5%">
-  <table mat-table [dataSource]="dataSource" #newsTable matSort >
+  <table mat-table
+         [dataSource]="dataSource" multiTemplateDataRows
+         class="mat-elevation-z8" matSort>
+
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Date"> Date </th>
       <td mat-cell *matCellDef="let news"> {{convertDate(news.date)}} </td>
@@ -34,11 +38,38 @@
 
     <ng-container matColumnDef="url">
       <th mat-header-cell *matHeaderCellDef> Url </th>
-      <td mat-cell *matCellDef="let news"> <a href="{{ news.url }}" target="_blank" rel="noopener noreferrer">{{ news.url }} </a> </td>
+      <td mat-cell *matCellDef="let news"> <a href="{{ news.url }}" target="_blank" rel="noopener noreferrer">{{ news.url.substring(0,50) }}(..) </a> </td>
+    </ng-container>
+   
+    <ng-container matColumnDef="expand">
+      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button aria-label="expand row" (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+          <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+        </button>
+      </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+        <div class="example-element-detail"
+             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="example-element-description">
+            {{element.content}}
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20, 100]"

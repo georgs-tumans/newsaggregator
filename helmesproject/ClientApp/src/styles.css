@@ -1,17 +1,62 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+
+html, body {
+  height: 100%;
 }
 
-code {
-  color: #e01a76;
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
 
 table {
   width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0 !important;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
 }
 
 .mat-column-url {
@@ -25,20 +70,13 @@ table {
 .mat-column-date {
   width: 15%;
 }
+
 .mat-column-author {
   width: 15%;
-  text-align: center;
+  padding-left:2% !important;
 }
 
-.mat-header-cell{
-    font-weight: bold;
-    font-size: 15px;
+.mat-header-cell {
+  font-weight: bold;
+  font-size: 15px;
 }
-
-
-
-
-html, body {
-  height: 100%;
-}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -2,20 +2,32 @@ import { Component, Inject, OnInit, ViewChild  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort} from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-fetch-data',
-  templateUrl: './fetch-data.component.html'
+  templateUrl: './fetch-data.component.html',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class FetchDataComponent implements OnInit{
   news: NewsItem[] = [];
   httpClient: HttpClient;
   baseUrl: string;
   interval: any;
-  displayedColumns: string[] = ['date', 'title', 'author', 'url'];
+  columnsToDisplay: string[] = ['date', 'title', 'author', 'url'];
   dataSource = new MatTableDataSource<NewsItem>(this.news);
   isLoadingResults = false;
+  expandedElement: NewsItem | null | undefined;
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
+
+
 
   @ViewChild(MatTable) newsTable!: MatTable<NewsItem>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -43,7 +55,7 @@ export class FetchDataComponent implements OnInit{
   refreshData() {
 
     //Lai lieki vizuāli neraustās lapa, jo no tā loadera tāpat nav jēga pie maza ierakstu skaita
-    if (this.dataSource.data.length > 2000) {
+    if (this.dataSource.data.length > 1000) {
       this.isLoadingResults = true;
     }
       
@@ -59,8 +71,8 @@ export class FetchDataComponent implements OnInit{
     var newDate = new Date(date);
     return newDate.toLocaleString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   }
- 
 }
+
 
 interface NewsItem {
   id: number;
