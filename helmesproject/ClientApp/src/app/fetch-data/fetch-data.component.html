@@ -1,44 +1,50 @@
-<h1 class="display-3 text-center">Aggregated news articles</h1>
-
+<h1 class="mat-display-2" style="margin-bottom:30px"> Aggregated news articles</h1>
 
 <p *ngIf="!news"><em>Loading...</em></p>
 
 
-<div class="table-responsive" style="margin-top:5%">
-  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="news">
-    <thead>
-      <tr class="d-flex">
-        <th class="col-2"> Date </th>
-        <th class="col-4">Title</th>
-        <th class="col-2">Author</th>
-        <th class="col-4">URL</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let n of news | slice: (page-1) * pageSize : page * pageSize; index as i" class="d-flex">
-        <td class="col-2">{{ convertDate(n.date) }}</td>
-        <td class="col-4">{{ n.title }}</td>
-        <td class="col-2">{{ n.author }}</td>
-        <td class="col-4"><a href="{{ n.url }}" target="_blank" rel="noopener noreferrer">{{ n.url }} </a></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="example-button-row" style="margin-bottom: 1%">
+  <button mat-mini-fab color="primary" (click)="refreshData()"
+          aria-label="Refresh"
+          matTooltip="Refresh data"> <mat-icon>refresh</mat-icon> </button>
 </div>
 
-<div class="dropdown">
-  <select [(ngModel)]="pageSize" class="form-select" placement="left" ngbTooltip="Items per page">
-    <option *ngFor="let ps of pageSizes" [value]="ps">{{ps}}</option>
-  </select>
+<div class="example-loading-shade" *ngIf="isLoadingResults">
+  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  <br>
 </div>
-<div class="pagination">
-  <ngb-pagination [collectionSize]="news.length" [(page)]="page" [pageSize] = "pageSize" [maxSize]="5" [rotate]="true" [ellipses]="true" [boundaryLinks]="true"></ngb-pagination>
-</div>
-<div style="margin-bottom: 3%">
-  <button type="button" class="btn btn-dark" (click)="refreshData()" placement="right" ngbTooltip="Refresh data">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
-      <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
-    </svg>
-  </button>
+
+
+<div class="mat-elevation-z8" style="margin-bottom: 5%">
+  <table mat-table [dataSource]="dataSource" #newsTable matSort >
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Date"> Date </th>
+      <td mat-cell *matCellDef="let news"> {{convertDate(news.date)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Title"> Title </th>
+      <td mat-cell *matCellDef="let news"> {{news.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Author"> Author </th>
+      <td mat-cell *matCellDef="let news"> {{news.author}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+      <th mat-header-cell *matHeaderCellDef> Url </th>
+      <td mat-cell *matCellDef="let news"> <a href="{{ news.url }}" target="_blank" rel="noopener noreferrer">{{ news.url }} </a> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 100]"
+                 showFirstLastButtons
+                 pageSize="10"
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
 </div>
 

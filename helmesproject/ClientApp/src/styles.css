@@ -9,40 +9,36 @@ code {
   color: #e01a76;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+
+table {
+  width: 100%;
 }
 
-.dropdown {
-  max-width: 7%;
-  float: left;
-  margin-right: 2%;
+.mat-column-url {
+  width: 30%;
 }
 
-.pagination {
-  max-width: 50%;
-  float: left;
-  margin-right: 4%;
-  color: #6c58bF;
+.mat-column-title {
+  width: 40%;
 }
 
-.pagination > .active > a {
-  color: white;
-  background-color: #212529 !Important;
-  border: solid 1px #5A4181 !Important;
+.mat-column-date {
+  width: 15%;
+}
+.mat-column-author {
+  width: 15%;
+  text-align: center;
 }
 
-.pagination > li > a {
-  background-color: white;
-  color: black;
-}
-
-.pagination > li > a:hover {
-  color: #5a5a5a;
-  background-color: #eee;
-  border-color: #ddd;
+.mat-header-cell{
+    font-weight: bold;
+    font-size: 15px;
 }
 
 
+
+
+html, body {
+  height: 100%;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
