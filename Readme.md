@@ -12,7 +12,7 @@ Programma veidota un ir pārbaudīti palaižama ar Docker for Windows. Lai to iz
 - Jāizveido image: `docker build . -t helmesproject`* 
 - No izveidotā image jāpalaiž konteiners: `docker run -d -v logs:/my_logs -p 8090:80 helmesproject`*
 
-* komandas izpilda mapē, kur atrodas Dockerfile.
+*komandas izpilda mapē, kur atrodas Dockerfile.
 
 Pēc palaišanas, programmu iespējams apskatīt pārlūkā, navigējot uz `localhost:8090/`.
 Logu failus iespējams atrast zem volume 'logs', kura saturu ērti pārskatīt caur Docker Desktop lietotni.

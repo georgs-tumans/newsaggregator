@@ -19,6 +19,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HttpClientModule,
     FormsModule,
     MatTableModule, MatPaginatorModule, MatIconModule, MatButtonModule, MatToolbarModule, MatSortModule, MatDividerModule, MatProgressSpinnerModule, MatTooltipModule,
+    MatInputModule, MatFormFieldModule,
     RouterModule.forRoot([
       { path: '', component: FetchDataComponent, pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent },

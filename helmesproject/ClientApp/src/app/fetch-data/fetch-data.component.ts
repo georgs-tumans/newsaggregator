@@ -67,6 +67,11 @@ export class FetchDataComponent implements OnInit{
     }, error => console.error(error));
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   convertDate(date: string) {
     var newDate = new Date(date);
     return newDate.toLocaleString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
