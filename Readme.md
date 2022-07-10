@@ -31,11 +31,11 @@ Projekts tiek konfigurēts ar šādiem iestatījumiem iekš Appsettings.json:
   "ApiUrl": "https://inshorts.deta.dev/news?category=all",  //URL uz API, ko sauc datu izguvei
   "RefreshInterval": 60, //API izsaukšanas (datu atjaunošanas) regularitātes interāls. kas norādāms sekundēs
   "LoggingPath": "../my_logs", //ceļs uz log failiem*
-  "MinLogLevel": "Info", //Debug/Info/Warning/Error - var norādīt, kāds ir minimālais failā rakstāmais log līmenis
+  "MinLogLevel": "Info", //Debug/Info/Warning/Error - var norādīt, kāds ir minimālais failā rakstāmais log līmenis**
   "SaveDuplicates":  false //Tā kā regulāri izsaucot API tiek saņemti daudzi duplikāti, te var norādīt, vai tos atkārtoti saglabāt DB vai nē (un attiecīgi attēlot pārlūkā vai nē)
 }
 ```
 Konfigurācija jāveic pirms Docker image izveides.
 
 *mapes nosaukumam šajā ceļā jāsakrīt ar Docker volume, ar kuru tiek palaists konteiners. Pēc noklusējuma iestatīts ceļš uz `my_logs` mapi un tāpat arī nosaukts izveidojamais volume palaišanas komandā.
-
+**Tā kā kļūdas vienmēr tiek rakstītas atsevišķā log failā, šis iestatījums attiecas tikai uz pamata log failu, kur var tikt rakstīti visi līmeņi

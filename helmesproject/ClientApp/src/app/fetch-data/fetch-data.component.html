@@ -1,8 +1,5 @@
 <h1 class="mat-display-2" style="margin-bottom:30px"> Aggregated news articles</h1>
 
-<p *ngIf="!news"><em>Loading...</em></p>
-
-
 <div class="example-button-row" style="margin-bottom: 1%" *ngIf="!isLoadingResults">
   <button mat-mini-fab color="primary" (click)="refreshData()"
           aria-label="Refresh"
@@ -12,7 +9,7 @@
 </div>
 
 <div class="example-loading-shade" *ngIf="isLoadingResults">
-  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  <mat-spinner *ngIf="isLoadingResults || !news"></mat-spinner>
   <br>
 </div>
 
