@@ -16,3 +16,4 @@
 /helmesproject/helmes.db
 /my_logs
 /helmesproject/*.log
+/helmesproject/bin/Release/net6.0
