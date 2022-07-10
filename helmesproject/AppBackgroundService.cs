@@ -69,7 +69,7 @@
                                 string apiResponse = await response.Content.ReadAsStringAsync();
                                 responseResult = JsonSerializer.Deserialize<NewsResponse>(apiResponse, options);
                             }
-                            else throw new Exception("API request failed!");
+                            else throw new Exception("API request failed!", new Exception($"{response.StatusCode} | {response.Content.ReadAsStringAsync()}"));
                             
                         }
                     }
@@ -133,7 +133,7 @@
             }
             catch (Exception ex)
             {
-                _logger.Log(ex.ToString(), Helpers.LogLevel.Error, ex.StackTrace);
+                _logger.Log(ex.ToString(), Helpers.LogLevel.Error, ex.StackTrace, ex.InnerException?.ToString());
             }
            
 
